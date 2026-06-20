@@ -2285,7 +2285,7 @@ void CutScene::DrawUpsell(Graphics* g)
 //0x441480
 void CutScene::UpdateIntro()
 {
-	mBoard->Move(TodAnimateCurve(TimeIntro_PanRightStart, TimeIntro_PanRightEnd, mCutsceneTime, -100, 100, TodCurves::CURVE_LINEAR), 0);
+	mBoard->Move(TodAnimateCurve(TimeIntro_PanRightStart, TimeIntro_PanRightEnd, mCutsceneTime, 100, -100, TodCurves::CURVE_LINEAR), 0); //Fix bug
 
 	if (mCutsceneTime == 10)
 	{
@@ -2338,7 +2338,7 @@ void CutScene::DrawIntro(Graphics* g)
 			_S("[INTRO_PRESENTS]"), 
 			BOARD_WIDTH / 2 - mBoard->mX, 
 			310 - mBoard->mY, 
-			FONT_BRIANNETOD16,
+			FONT_BRIANNETOD32, //Bug fix
 			Color(255, 255, 255, anAlpha), 
 			DrawStringJustification::DS_ALIGN_CENTER
 		);

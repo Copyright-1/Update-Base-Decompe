@@ -2,6 +2,8 @@
 # Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/PlantsVsZombies/v16
+/.vs
 /Debug
+/Release
 /SexyAppFramework/Debug
+/SexyAppFramework/Release
