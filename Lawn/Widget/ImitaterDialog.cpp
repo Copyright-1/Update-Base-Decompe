@@ -31,7 +31,7 @@ ImitaterDialog::~ImitaterDialog()
 //0x482D30
 SeedType ImitaterDialog::SeedHitTest(int x, int y)
 {
-	for (SeedType aSeedType = (SeedType)0; aSeedType < SeedType::SEED_GATLINGPEA; aSeedType = (SeedType)(aSeedType + 1))
+	for (SeedType aSeedType = SeedType::SEED_PEASHOOTER; aSeedType < SeedType::SEED_GATLINGPEA; aSeedType = (SeedType)(aSeedType + 1))
 	{
 		if (mApp->SeedTypeAvailable(aSeedType))
 		{
