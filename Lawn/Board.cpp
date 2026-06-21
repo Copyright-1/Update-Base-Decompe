@@ -6270,7 +6270,7 @@ void Board::DrawGameObjects(Graphics* g)
 			{
 				AddGameObjectRenderItemZombie(aRenderList, aRenderItemCount, RenderObjectType::RENDER_ITEM_ZOMBIE, aZombie);
 
-				if (aZombie->HasShadow())
+				if (aZombie->HasShadow() && mApp->mGameMode != GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
 				{
 					RenderItem& aRenderItem = aRenderList[aRenderItemCount];
 					aRenderItem.mRenderObjectType = RenderObjectType::RENDER_ITEM_ZOMBIE_SHADOW;
