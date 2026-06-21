@@ -409,7 +409,7 @@ bool FontData::HandleCommand(const ListDataElement& theParams)
 				
 				mFontLayerList.push_back(FontLayer(this));
 				FontLayer* aFontLayer = &mFontLayerList.back();
-
+				aFontLayer->mBaseOrder = mFontLayerList.size() - 1;
 				if (!mFontLayerMap.insert(FontLayerMap::value_type(aLayerName, aFontLayer)).second)
 				{
 					Error("Layer Already Exists");							
@@ -433,7 +433,7 @@ bool FontData::HandleCommand(const ListDataElement& theParams)
 
 				mFontLayerList.push_back(FontLayer(*aSourceLayer));
 				FontLayer* aFontLayer = &mFontLayerList.back();
-
+				aFontLayer->mBaseOrder = mFontLayerList.size() - 1;
 				if (!mFontLayerMap.insert(FontLayerMap::value_type(aLayerName, aFontLayer)).second)
 				{
 					Error("Layer Already Exists");							
@@ -1022,7 +1022,7 @@ bool FontData::Load(SexyAppBase* theSexyApp, const std::string& theFontDescFileN
 	
 	mSourceFile = theFontDescFileName;	
 
-	mInitialized = LoadDescriptor(theFontDescFileName);	;
+	mInitialized = LoadDescriptor(theFontDescFileName);	//Why was there a ";" here?
 
 	return !hasErrors;
 }
