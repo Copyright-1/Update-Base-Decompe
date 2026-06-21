@@ -485,7 +485,7 @@ void ChallengeScreen::DrawButton(Graphics* g, int theChallengeIndex)
 					TodDrawString(g, topStr, aPosX + 52, aPosY + 88, Sexy::FONT_BRIANNETOD12, aTextColor, DS_ALIGN_CENTER);
 					if (aLine2Len > 0)
 					{
-						TodDrawString(g, botStr, aPosX + 52, aPosY + 102, Sexy::FONT_BRIANNETOD12, aTextColor, DS_ALIGN_CENTER);
+						TodDrawString(g, botStr, aPosX + 50, aPosY + 102, Sexy::FONT_BRIANNETOD12, aTextColor, DS_ALIGN_CENTER);
 					}
 				}
 			
