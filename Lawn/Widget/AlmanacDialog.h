@@ -32,8 +32,6 @@ private:
 		ALMANAC_BUTTON_ZOMBIE = 2,
 		ALMANAC_BUTTON_INDEX = 3,
 		AlmanacSlider = 4, 
-		ALMANAC_BUTTON_NEXT = 5,
-		ALMANAC_BUTTON_LAST = 6
 	};
 
 public:
@@ -42,8 +40,6 @@ public:
 	GameButton*					mIndexButton;			//+0x174
 	GameButton*					mPlantButton;			//+0x178
 	GameButton*					mZombieButton;			//+0x17C
-	GameButton* mNextButton;			//+0x178
-	GameButton* mLastButton;			//+0x17C
 	//Sexy::Slider* mSlider;
 	AlmanacPage					mOpenPage;				//+0x180
 	Reanimation*				mReanim[4];				//+0x184

@@ -79,40 +79,6 @@ AlmanacDialog::AlmanacDialog(LawnApp* theApp) : LawnDialog(theApp, DIALOG_ALMANA
 	mZombieButton->mDrawStoneButton = true;
 	mZombieButton->mParentWidget = this;
 
-
-	mNextButton = new GameButton(AlmanacDialog::ALMANAC_BUTTON_NEXT);
-	mNextButton->SetLabel(_S("NEXT PAGE"));
-	mNextButton->mButtonImage = Sexy::IMAGE_ALMANAC_INDEXBUTTON;
-	mNextButton->mOverImage = Sexy::IMAGE_ALMANAC_INDEXBUTTONHIGHLIGHT;
-	mNextButton->mDownImage = nullptr;
-	//mPlantButton->mDisabledImage = Sexy::IMAGE_SEEDCHOOSER_BUTTON_DISABLED;
-	//mPlantButton->mOverOverlayImage = Sexy::IMAGE_SEEDCHOOSER_BUTTON_GLOW;
-	mNextButton->SetFont(Sexy::FONT_BRIANNETOD12);
-	mNextButton->mColors[ButtonWidget::COLOR_LABEL] = aColor;
-	mNextButton->mColors[ButtonWidget::COLOR_LABEL_HILITE] = aColor;
-	mNextButton->Resize(345+168, 567, 164, 26);
-	mNextButton->mTextOffsetX = -8;
-	mNextButton->mTextOffsetY = 1;
-	mNextButton->mParentWidget = this;
-
-
-	mLastButton = new GameButton(AlmanacDialog::ALMANAC_BUTTON_LAST);
-	mLastButton->SetLabel(_S("LAST PAGE"));
-	mLastButton->mButtonImage = Sexy::IMAGE_ALMANAC_INDEXBUTTON;
-	mLastButton->mOverImage = Sexy::IMAGE_ALMANAC_INDEXBUTTONHIGHLIGHT;
-	mLastButton->mDownImage = nullptr;
-	//mPlantButton->mDisabledImage = Sexy::IMAGE_SEEDCHOOSER_BUTTON_DISABLED;
-	//mPlantButton->mOverOverlayImage = Sexy::IMAGE_SEEDCHOOSER_BUTTON_GLOW;
-	mLastButton->SetFont(Sexy::FONT_BRIANNETOD12);
-	mLastButton->mColors[ButtonWidget::COLOR_LABEL] = aColor;
-	mLastButton->mColors[ButtonWidget::COLOR_LABEL_HILITE] = aColor;
-	mLastButton->Resize(345, 567, 164, 26);
-	//mLastButton->mTextOffsetY = -1;
-	mLastButton->mTextOffsetX = 8;
-	mLastButton->mTextOffsetY = 1;
-	mLastButton->mParentWidget = this;
-	mIndexedPage = 0;
-
 	SetPage(ALMANAC_PAGE_INDEX);
 	if (!mApp->mBoard || !mApp->mBoard->mPaused)
 		mApp->mMusic->MakeSureMusicIsPlaying(MUSIC_TUNE_CHOOSE_YOUR_SEEDS);
@@ -125,8 +91,6 @@ AlmanacDialog::~AlmanacDialog()
 	if (mIndexButton)	delete mIndexButton;
 	if (mPlantButton)	delete mPlantButton;
 	if (mZombieButton)	delete mZombieButton;
-	if (mNextButton) delete mNextButton;
-	if (mLastButton) delete mLastButton;
 	//RemoveWidget(mSlider);
 	//delete mSlider;
 	ClearPlantsAndZombies();
@@ -222,8 +186,6 @@ void AlmanacDialog::SetPage(AlmanacPage thePage)
 		mIndexButton->mBtnNoDraw = true;
 		mPlantButton->mBtnNoDraw = false;
 		mZombieButton->mBtnNoDraw = false;
-		mNextButton->mBtnNoDraw = true;
-		mLastButton->mBtnNoDraw = true;
 	}
 	else
 	{
@@ -236,8 +198,6 @@ void AlmanacDialog::SetPage(AlmanacPage thePage)
 		mIndexButton->mBtnNoDraw = false;
 		mPlantButton->mBtnNoDraw = true;
 		mZombieButton->mBtnNoDraw = true;
-		mNextButton->mBtnNoDraw = false;
-		mLastButton->mBtnNoDraw = false;
 	}
 }
 
@@ -260,8 +220,6 @@ void AlmanacDialog::Update()
 	mIndexButton->Update();
 	mPlantButton->Update();
 	mZombieButton->Update();
-	mNextButton->Update();
-	mLastButton->Update();
 	if (mPlant) mPlant->Update();
 	if (mZombie) mZombie->Update();
 
@@ -278,8 +236,7 @@ void AlmanacDialog::Update()
 	int aMouseX = mApp->mWidgetManager->mLastMouseX;
 	int aMouseY = mApp->mWidgetManager->mLastMouseY;
 	if (SeedHitTest(aMouseX, aMouseY) != SeedType::SEED_NONE || ZombieHitTest(aMouseX, aMouseY) != ZombieType::ZOMBIE_INVALID || 
-		mCloseButton->IsMouseOver() || mIndexButton->IsMouseOver() || mPlantButton->IsMouseOver() || mZombieButton->IsMouseOver()
-		|| mNextButton->IsMouseOver() || mLastButton->IsMouseOver())
+		mCloseButton->IsMouseOver() || mIndexButton->IsMouseOver() || mPlantButton->IsMouseOver() || mZombieButton->IsMouseOver())
 	{
 		mApp->SetCursor(CURSOR_HAND);
 	}
@@ -320,16 +277,16 @@ void AlmanacDialog::DrawIndex(Graphics* g)
 //0x402060
 void AlmanacDialog::DrawPlants(Graphics* g)
 {
-	TodDrawString(g, _S("[SUBURBAN_ALMANAC_PLANTS]"), BOARD_WIDTH / 2, 48, Sexy::FONT_HOUSEOFTERROR20, Color(213, 159, 43), DrawStringJustification::DS_ALIGN_CENTER);
 	g->DrawImage(Sexy::IMAGE_ALMANAC_PLANTBACK, 0, 0);
+	TodDrawString(g, _S("[SUBURBAN_ALMANAC_PLANTS]"), BOARD_WIDTH / 2, 48, Sexy::FONT_HOUSEOFTERROR20, Color(213, 159, 43), DrawStringJustification::DS_ALIGN_CENTER);
 	SeedType aSeedMouseOn = SeedHitTest(mApp->mWidgetManager->mLastMouseX, mApp->mWidgetManager->mLastMouseY);
 	for (SeedType aSeedType = SeedType::SEED_PEASHOOTER; aSeedType < NUM_ALMANAC_SEEDS; aSeedType = (SeedType)(aSeedType + 1))
 	{
 		int aPosX, aPosY;
 		GetSeedPosition(aSeedType, aPosX, aPosY);
 		PlantDefinition& aPlantDef = GetPlantDefinition(aSeedType);
-		//int mRealIndexedPage = (aPlantDef.thePage > )
-		if (mApp->SeedTypeAvailable(aSeedType) && aPlantDef.getPage() == mIndexedPage)
+
+		if (mApp->SeedTypeAvailable(aSeedType))
 		{
 			if (aSeedType == SeedType::SEED_IMITATER)
 			{
@@ -417,7 +374,7 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 		int aPosX, aPosY;
 		GetZombiePosition(aZombieType, aPosX, aPosY);
 		ZombieDefinition aZombieDefiniton = GetZombieDefinition(aZombieType);
-		if (aZombieType != ZombieType::ZOMBIE_INVALID && aZombieDefiniton.getPage() == mIndexedPage)
+		if (aZombieType != ZombieType::ZOMBIE_INVALID)
 		{
 			if (!ZombieIsShown(aZombieType))
 				g->DrawImage(Sexy::IMAGE_ALMANAC_ZOMBIEBLANK, aPosX, aPosY);
@@ -572,34 +529,6 @@ void AlmanacDialog::Draw(Graphics* g)
 	mIndexButton->Draw(g);
 	mPlantButton->Draw(g);
 	mZombieButton->Draw(g);
-	if (mOpenPage != AlmanacPage::ALMANAC_PAGE_INDEX)
-	{
-		if (mNextButton->mIsOver)
-		{
-			TodDrawImageScaledF(g, mNextButton->mOverImage, mNextButton->mX + 164, mNextButton->mY, -1, 1);
-		}
-		else
-		{
-			TodDrawImageScaledF(g, mNextButton->mButtonImage, mNextButton->mX + 164, mNextButton->mY, -1, 1);
-		}
-		int aFontX = mNextButton->mTextOffsetX;
-		int aFontY = mNextButton->mTextOffsetY;
-		Font* mFont = mNextButton->mFont;
-		if (mFont)
-		{
-			if (mNextButton->mLabelJustify == GameButton::BUTTON_LABEL_CENTER)
-				aFontX += (mWidth - mFont->StringWidth(mNextButton->mLabel)) / 2;
-			else if (mNextButton->mLabelJustify == GameButton::BUTTON_LABEL_RIGHT)
-				aFontX += mWidth - mFont->StringWidth(mNextButton->mLabel);
-
-			aFontY += (mHeight - mFont->GetAscent() / 6 + mFont->GetAscent() - 1) / 2;
-		}
-		g->SetFont(mFont);
-
-		g->SetColor(mNextButton->mColors[ButtonWidget::COLOR_LABEL]);
-		g->DrawString(StringToSexyStringFast(mNextButton->mLabel), mNextButton->mX + 48, mNextButton->mY + 19);
-	}
-	mLastButton->Draw(g);
 }
 
 void AlmanacDialog::GetSeedPosition(SeedType theSeedType, int& x, int& y)
@@ -626,7 +555,7 @@ SeedType AlmanacDialog::SeedHitTest(int x, int y)
 		for (SeedType aSeedType = SeedType::SEED_PEASHOOTER; aSeedType < NUM_ALMANAC_SEEDS; aSeedType = (SeedType)(aSeedType + 1))
 		{
 			PlantDefinition& aPlantDef = GetPlantDefinition(aSeedType);
-			if (mApp->SeedTypeAvailable(aSeedType) && aPlantDef.getPage() == mIndexedPage)
+			if (mApp->SeedTypeAvailable(aSeedType))
 			{
 				int aSeedX, aSeedY;
 				GetSeedPosition(aSeedType, aSeedX, aSeedY);
@@ -726,7 +655,7 @@ ZombieType AlmanacDialog::ZombieHitTest(int x, int y)
 		{
 			ZombieType aZombieType = GetZombieType(i);
 			ZombieDefinition aZombieDefiniton = GetZombieDefinition(aZombieType);
-			if (aZombieType != ZombieType::ZOMBIE_INVALID && aZombieDefiniton.getPage() == mIndexedPage)
+			if (aZombieType != ZombieType::ZOMBIE_INVALID && ZombieIsShown(aZombieType))
 			{
 				int aZombieX, aZombieY;
 				GetZombiePosition(aZombieType, aZombieX, aZombieY);
@@ -751,8 +680,6 @@ void AlmanacDialog::MouseUp(int x, int y, int theClickCount)
 		mIndexedPage = 0;
 		SetPage(ALMANAC_PAGE_ZOMBIES);
 	}
-	else if (mNextButton->IsMouseOver()) mIndexedPage++;
-	else if (mLastButton->IsMouseOver()) mIndexedPage--;
 	else if (mCloseButton->IsMouseOver())	mApp->KillAlmanacDialog();
 	else if (mIndexButton->IsMouseOver())	SetPage(ALMANAC_PAGE_INDEX);
 }
@@ -760,7 +687,7 @@ void AlmanacDialog::MouseUp(int x, int y, int theClickCount)
 //0x403D00
 void AlmanacDialog::MouseDown(int x, int y, int theClickCount)
 {
-	if (mPlantButton->IsMouseOver() || mCloseButton->IsMouseOver() || mIndexButton->IsMouseOver() || mNextButton->IsMouseOver() || mLastButton->IsMouseOver())
+	if (mPlantButton->IsMouseOver() || mCloseButton->IsMouseOver() || mIndexButton->IsMouseOver())
 		mApp->PlaySample(Sexy::SOUND_TAP);
 	if (mZombieButton->IsMouseOver())
 		mApp->PlaySample(Sexy::SOUND_GRAVEBUTTON);

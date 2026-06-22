@@ -30,7 +30,7 @@
 #include "../Sexy.TodLib/TodStringFile.h"
 #include "../SexyAppFramework/WidgetManager.h"
 
-int gZombieWaves[NUM_LEVELS] = {  //0x6A34E8
+unsigned char gZombieWaves[NUM_LEVELS] = {  //0x6A34E8
 	4,  6,  8,  10, 8,  10, 20, 10, 20, 20,
 	10, 20, 10, 20, 10, 10, 20, 10, 20, 20,
 	10, 20, 20, 30, 20, 20, 30, 20, 30, 30,
@@ -313,7 +313,7 @@ Challenge::Challenge()
 	for (int i = 0; i < 6; i++)
 		mReanimClouds[i] = REANIMATIONID_NULL;
 	memset(mBeghouledEated, 0, sizeof(mBeghouledEated));
-	for (int i = 0; i < (int)BeghouledUpgrade::NUM_BEGHOULED_UPGRADES; i++)
+	for (unsigned char i = 0; i < (unsigned char)BeghouledUpgrade::NUM_BEGHOULED_UPGRADES; i++)
 		mBeghouledPurcasedUpgrade[i] = false;
 
 	if (mApp->mBoard && mApp->mGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE)

@@ -5,19 +5,19 @@
 
 #define MAX_MAGNET_ITEMS 5
 
-enum PlantSubClass
+enum PlantSubClass : unsigned char
 {
     SUBCLASS_NORMAL = 0,
     SUBCLASS_SHOOTER = 1
 };
 
-enum PlantWeapon
+enum PlantWeapon : unsigned char
 {
     WEAPON_PRIMARY,
     WEAPON_SECONDARY
 };
 
-enum PlantOnBungeeState
+enum PlantOnBungeeState : unsigned char
 {
     NOT_ON_BUNGEE,
     GETTING_GRABBED_BY_BUNGEE,
@@ -138,6 +138,9 @@ public:
     float                   mDestOffsetX;                   //+0x8
     float                   mDestOffsetY;                   //+0xC
     MagnetItemType          mItemType;                      //+0x10
+#ifdef DO_FIX_BUGS
+    bool                    mIsTaken
+#endif
 };
 
 class Coin;
@@ -316,8 +319,6 @@ public:
     PlantSubClass           mSubClass;          //+0x18
     int                     mLaunchRate;        //+0x1C
     const SexyChar*         mPlantName;         //+0x20
-    int thePage = -10000;   //+0x24
-    int getPage();          //+0x28
 };
 extern PlantDefinition gPlantDefs[SeedType::NUM_SEED_TYPES];
 
