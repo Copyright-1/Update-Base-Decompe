@@ -5,7 +5,7 @@
 #include "../../ConstEnums.h"
 
 #define NUM_ALMANAC_SEEDS NUM_SEED_TYPES
-#define NUM_ALMANAC_ZOMBIES NUM_ZOMBIE_TYPES
+#define NUM_ALMANAC_ZOMBIES ZOMBIE_BOSS
 
 constexpr const float			ALMANAC_PLANT_POSITION_X		= 578.0f;
 constexpr const float			ALMANAC_PLANT_POSITION_Y		= 140.0f;
@@ -48,8 +48,6 @@ public:
 	Plant*						mPlant;					//+0x19C
 	Zombie*						mZombie;				//+0x1A0
 	Zombie*						mZombiePerfTest[400];	//+0x1A4
-	float						mIncrement;
-	int mIndexedPage;
 	
 public:
 	AlmanacDialog(LawnApp* theApp);
@@ -82,7 +80,5 @@ public:
 };
 extern int gZombieDefeated[NUM_ZOMBIE_TYPES];
 
-/*inline*/ void					AlmanacInitForPlayer();
-/*inline*/ void					AlmanacPlayerDefeatedZombie(ZombieType theZombieType);
 
 #endif
