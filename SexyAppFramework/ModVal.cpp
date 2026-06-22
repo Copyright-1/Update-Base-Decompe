@@ -63,16 +63,16 @@ static const char* FindFileInStringTable(const std::string &theSearch, const cha
 
 static bool ParseModValString(std::string &theStr, int *theCounter = NULL, int *theLineNum = NULL)
 {
-	int aPos = theStr.length()-1;
+	int aPos = (unsigned char)theStr.length()-1;
 	bool foundComma = false;
 	while (aPos>0)
 	{
-		if (!foundComma && theStr[aPos]==',')
+		if (!foundComma && (unsigned char)theStr[aPos]==',')
 		{
 			aPos--;
 			foundComma = true;
 		}
-		else if (isdigit(theStr[aPos]))
+		else if (isdigit((unsigned char)theStr[aPos]))
 			aPos--;
 		else
 			break;

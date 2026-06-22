@@ -78,7 +78,7 @@ void LawnEditWidget::KeyDown(KeyCode theKey)
 //0x456760
 void LawnEditWidget::KeyChar(char theChar)
 {
-    if (mAutoCapFirstLetter && isalpha(theChar))
+    if (mAutoCapFirstLetter && isalpha((unsigned char)theChar))
     {
         theChar = toupper(theChar);
         mAutoCapFirstLetter = false;
