@@ -216,7 +216,6 @@ public:
 	static SexyString				GetStageString(int theLevel);
 	/*inline*/ void					KillChallengeScreen();
 	void							ShowChallengeScreen(ChallengePage thePage);
-	ChallengeDefinition&			GetCurrentChallengeDef();
 	void							CheckForGameEnd();
 	virtual void					CloseRequestAsync();
 	/*inline*/ bool					IsChallengeWithoutSeedBank();
@@ -299,7 +298,6 @@ public:
 	void							CrazyDaveDoneHanding();
 	inline SexyString				GetCurrentLevelName() { return _S("Unknown"); }
 	/*inline*/ int					TrophiesNeedForGoldSunflower();
-	/*inline*/ int					GetCurrentChallengeIndex();
 	void							LoadGroup(const char* theGroupName, int theGroupAveMsToLoad);
 	void							TraceLoadGroup(const char* theGroupName, int theGroupTime, int theTotalGroupWeigth, int theTaskWeight);
 	void							CrazyDaveStopSound();

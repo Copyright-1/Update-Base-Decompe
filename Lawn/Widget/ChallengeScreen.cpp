@@ -131,7 +131,7 @@ ChallengeScreen::ChallengeScreen(LawnApp* theApp, ChallengePage thePage)
 	
 	for (int aChallengeMode = 0; aChallengeMode < NUM_CHALLENGE_MODES; aChallengeMode++)
 	{
-		ChallengeDefinition& aChlDef = GetChallengeDefinition(aChallengeMode);
+		ChallengeDefinition& aChlDef = gChallengeDefs[aChallengeMode];
 		ButtonWidget* aChallengeButton = new ButtonWidget(ChallengeScreen::ChallengeScreen_Mode + aChallengeMode, this);
 		mChallengeButtons[aChallengeMode] = aChallengeButton;
 		aChallengeButton->mDoFinger = true;
@@ -190,16 +190,6 @@ ChallengeScreen::~ChallengeScreen()
 	delete mToolTip;
 }
 
-ChallengeDefinition& GetChallengeDefinition(int theChallengeMode)
-{
-	TOD_ASSERT(theChallengeMode >= 0 && theChallengeMode < NUM_CHALLENGE_MODES);
-
-	ChallengeDefinition& aDef = gChallengeDefs[theChallengeMode];
-	TOD_ASSERT(aDef.mChallengeMode == theChallengeMode + GAMEMODE_SURVIVAL_NORMAL_STAGE_1);
-
-	return gChallengeDefs[theChallengeMode];
-}
-
 bool ChallengeScreen::IsScaryPotterLevel(GameMode theGameMode)
 {
 	return theGameMode >= GAMEMODE_SCARY_POTTER_1 && theGameMode <= GAMEMODE_SCARY_POTTER_ENDLESS;
@@ -218,7 +208,7 @@ void ChallengeScreen::SetUnlockChallengeIndex(ChallengePage thePage, bool theIsI
 	mUnlockChallengeIndex = 0;
 	for (int aChallengeMode = 0; aChallengeMode < NUM_CHALLENGE_MODES; aChallengeMode++)
 	{
-		ChallengeDefinition& aDef = GetChallengeDefinition(aChallengeMode);
+		ChallengeDefinition& aDef = gChallengeDefs[aChallengeMode];
 		if (aDef.mPage == thePage)
 		{
 			if (thePage != CHALLENGE_PAGE_PUZZLE || (!theIsIZombie && IsScaryPotterLevel(aDef.mChallengeMode)) || (theIsIZombie && IsIZombieLevel(aDef.mChallengeMode)))
@@ -235,7 +225,7 @@ void ChallengeScreen::SetUnlockChallengeIndex(ChallengePage thePage, bool theIsI
 //0x42E440
 int ChallengeScreen::MoreTrophiesNeeded(int theChallengeIndex)
 {
-	ChallengeDefinition& aDef = GetChallengeDefinition(theChallengeIndex);
+	ChallengeDefinition& aDef = gChallengeDefs[theChallengeIndex];
 	if (mApp->mGameMode == GAMEMODE_UPSELL && mApp->mGameScene == SCENE_LEVEL_INTRO)
 	{
 		return aDef.mChallengeMode == GAMEMODE_CHALLENGE_FINAL_BOSS ? 1 : 0;
@@ -342,7 +332,7 @@ bool ChallengeScreen::ShowPageButtons()
 void ChallengeScreen::UpdateButtons()
 {
 	for (int aChallengeMode = 0; aChallengeMode < NUM_CHALLENGE_MODES; aChallengeMode++)
-		mChallengeButtons[aChallengeMode]->mVisible = GetChallengeDefinition(aChallengeMode).mPage == mPageIndex;
+		mChallengeButtons[aChallengeMode]->mVisible = gChallengeDefs[aChallengeMode].mPage == mPageIndex;
 	for (int aPage = 0; aPage < MAX_CHALLANGE_PAGES; aPage++)
 	{
 		ButtonWidget* aPageButton = mPageButton[aPage];
@@ -363,7 +353,7 @@ void ChallengeScreen::UpdateButtons()
 int ChallengeScreen::AccomplishmentsNeeded(int theChallengeIndex)
 {
 	int aTrophiesNeeded = MoreTrophiesNeeded(theChallengeIndex);
-	GameMode aGameMode = GetChallengeDefinition(theChallengeIndex).mChallengeMode;
+	GameMode aGameMode = gChallengeDefs[theChallengeIndex].mChallengeMode;
 	if (mApp->IsSurvivalEndless(aGameMode) && aTrophiesNeeded <= 3 && mApp->GetNumTrophies(CHALLENGE_PAGE_SURVIVAL) < 10 &&
 		mApp->HasFinishedAdventure() && !mApp->IsTrialStageLocked()) aTrophiesNeeded = 1;
 	return mCheatEnableChallenges ? 0 : aTrophiesNeeded;
@@ -375,7 +365,7 @@ void ChallengeScreen::DrawButton(Graphics* g, int theChallengeIndex)
 	ButtonWidget* aChallengeButton = mChallengeButtons[theChallengeIndex];
 	if (aChallengeButton->mVisible)
 	{
-		ChallengeDefinition& aDef = GetChallengeDefinition(theChallengeIndex);
+		ChallengeDefinition& aDef = gChallengeDefs[theChallengeIndex];
 		int aPosX = aChallengeButton->mX;
 		int aPosY = aChallengeButton->mY;
 		if (aChallengeButton->mIsDown)
@@ -657,7 +647,7 @@ void ChallengeScreen::UpdateToolTip()
 
 	for (int aChallengeMode = 0; aChallengeMode < NUM_CHALLENGE_MODES; aChallengeMode++)
 	{
-		ChallengeDefinition& aDef = GetChallengeDefinition(aChallengeMode);
+		ChallengeDefinition& aDef = gChallengeDefs[aChallengeMode];
 		ButtonWidget* aChallengeButton = mChallengeButtons[aChallengeMode];
 		if (aChallengeButton->mVisible && aChallengeButton->mDisabled &&
 			aChallengeButton->Contains(mApp->mWidgetManager->mLastMouseX, mApp->mWidgetManager->mLastMouseY) &&

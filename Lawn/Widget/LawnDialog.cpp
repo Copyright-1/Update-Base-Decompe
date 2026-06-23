@@ -451,7 +451,7 @@ GameOverDialog::GameOverDialog(const SexyString& theMessage, bool theShowChallen
     mLawnYesButton->SetLabel(_S("[TRY_AGAIN]"));
     if (theShowChallengeName)
     {
-        mDialogHeader = TodStringTranslate(mApp->GetCurrentChallengeDef().mChallengeName);
+        mDialogHeader = TodStringTranslate(gChallengeDefs[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1].mChallengeName);
     }
 
     if (theMessage.size() == 0)

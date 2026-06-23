@@ -547,7 +547,7 @@ void Board::PutZombieInWave(ZombieType theZombieType, int theWaveNumber, ZombieP
 	{
 		mZombiesInWave[theWaveNumber][theZombiePicker->mZombieCount] = ZombieType::ZOMBIE_INVALID;
 	}
-	theZombiePicker->mZombiePoints -= GetZombieDefinition(theZombieType).mZombieValue;
+	theZombiePicker->mZombiePoints -= gZombieDefs[theZombieType].mZombieValue;
 	theZombiePicker->mZombieTypeCount[theZombieType]++;
 	theZombiePicker->mAllWavesZombieTypeCount[theZombieType]++;
 }
@@ -1194,7 +1194,7 @@ bool Board::IsZombieWaveDistributionOk()
 	{
 		if (aZombieType != ZombieType::ZOMBIE_YETI && CanZombieSpawnOnLevel(aZombieType, mLevel) && aZombieTypeCount[(int)aZombieType] == 0)
 		{
-			TodTraceAndLog("Didn't spawn required zombie %s, level %d", SexyStringToStringFast(GetZombieDefinition(aZombieType).mZombieName), mLevel);
+			TodTraceAndLog("Didn't spawn required zombie %s, level %d", SexyStringToStringFast(gZombieDefs[aZombieType].mZombieName), mLevel);
 			return false;
 		}
 	}
@@ -2367,7 +2367,7 @@ Projectile* Board::AddProjectile(int theX, int theY, int theRenderOrder, int the
 //0x40D660
 bool Board::CanZombieSpawnOnLevel(ZombieType theZombieType, int theLevel)
 {
-	const ZombieDefinition& aZombieDef = GetZombieDefinition(theZombieType);
+	const ZombieDefinition& aZombieDef = gZombieDefs[theZombieType];
 	if (theZombieType == ZombieType::ZOMBIE_YETI)
 	{
 		return gLawnApp->CanSpawnYetis();
@@ -2392,7 +2392,7 @@ ZombieType Board::GetIntroducedZombieType()
 
 	for (ZombieType aZombieType = ZombieType::ZOMBIE_NORMAL; aZombieType < ZombieType::NUM_ZOMBIE_TYPES; aZombieType = (ZombieType)((int)aZombieType + 1))
 	{
-		const ZombieDefinition& aZombieDef = GetZombieDefinition(aZombieType);
+		const ZombieDefinition& aZombieDef = gZombieDefs[aZombieType];
 		if ((aZombieType != ZombieType::ZOMBIE_YETI || mApp->CanSpawnYetis()) && aZombieDef.mStartingLevel == mLevel)
 		{
 			return aZombieType;
@@ -2407,20 +2407,20 @@ ZombieType Board::PickGraveRisingZombieType(int theZombiePoints)
 	TodWeightedArray aZombieWeightArray[(int)ZombieType::NUM_ZOMBIE_TYPES];
 	int aCount = 2;
 	aZombieWeightArray[0].mItem = ZombieType::ZOMBIE_NORMAL;
-	aZombieWeightArray[0].mWeight = GetZombieDefinition(ZombieType::ZOMBIE_NORMAL).mPickWeight;
+	aZombieWeightArray[0].mWeight = gZombieDefs[ZombieType::ZOMBIE_NORMAL].mPickWeight;
 	aZombieWeightArray[1].mItem = ZombieType::ZOMBIE_TRAFFIC_CONE;
-	aZombieWeightArray[1].mWeight = GetZombieDefinition(ZombieType::ZOMBIE_TRAFFIC_CONE).mPickWeight;
+	aZombieWeightArray[1].mWeight = gZombieDefs[ZombieType::ZOMBIE_TRAFFIC_CONE].mPickWeight;
 	if (!StageHasGraveStones())
 	{
 		aZombieWeightArray[2].mItem = ZombieType::ZOMBIE_PAIL;
-		aZombieWeightArray[2].mWeight = GetZombieDefinition(ZombieType::ZOMBIE_PAIL).mPickWeight;
+		aZombieWeightArray[2].mWeight = gZombieDefs[ZombieType::ZOMBIE_PAIL].mPickWeight;
 		aCount++;
 	}
 
 	for (int i = 0; i < aCount; i++)
 	{
 		ZombieType aZombieType = (ZombieType)aZombieWeightArray[i].mItem;
-		const ZombieDefinition& aZombieDef = GetZombieDefinition(aZombieType);
+		const ZombieDefinition& aZombieDef = gZombieDefs[aZombieType];
 		if ((mApp->IsFirstTimeAdventureMode() && mLevel < aZombieDef.mStartingLevel) || (!mZombieAllowed[aZombieType] && aZombieType != ZombieType::ZOMBIE_NORMAL))
 		{
 			aZombieWeightArray[i].mWeight = 0;
@@ -2440,7 +2440,7 @@ ZombieType Board::PickZombieType(int theZombiePoints, int theWaveIndex, ZombiePi
 		if (!mZombieAllowed[aZombieType])
 			continue;
 
-		const ZombieDefinition& aZombieDef = GetZombieDefinition((ZombieType)aZombieType);
+		const ZombieDefinition& aZombieDef = gZombieDefs[(ZombieType)aZombieType];
 
 		// ================================================================================================
 		// ▲ 将不符合出怪限制或超出剩余点数的僵尸类型排除
@@ -3307,7 +3307,7 @@ void Board::UpdateToolTip()
 			return;
 		}
 
-		SexyString aZombieName = StrFormat(_S("[%s]"), GetZombieDefinition(aZombie->mZombieType).mZombieName);
+		SexyString aZombieName = StrFormat(_S("[%s]"), gZombieDefs[aZombie->mZombieType].mZombieName);
 		mToolTip->SetTitle(aZombieName);
 		if (mApp->CanShowAlmanac() && aZombie->mZombieType != ZombieType::ZOMBIE_GARGANTUAR)
 		{
@@ -3563,7 +3563,7 @@ void Board::UpdateToolTip()
 	}
 	else
 	{
-		mToolTip->SetLabel(StrFormat(_S("[%s]"),GetPlantDefinition(aUseSeedType).mPlantName));
+		mToolTip->SetLabel(StrFormat(_S("[%s]"), gPlantDefs[aUseSeedType].mPlantName));
 	}
 
 	int aPlantCost = GetCurrentPlantCost(aSeedPacket->mPacketType, aSeedPacket->mImitaterType);
@@ -4866,7 +4866,7 @@ void Board::SpawnZombiesFromPool()
 		}
 
 		aZombie->RiseFromGrave(aGrid->mX, aGrid->mY);
-		aZombiePoints -= GetZombieDefinition(aZombieType).mZombieValue;
+		aZombiePoints -= gZombieDefs[aZombieType].mZombieValue;
 		if (aZombiePoints < 1)
 		{
 			aZombiePoints = 1;
@@ -4942,7 +4942,7 @@ void Board::SpawnZombiesFromSky()
 	{
 		ZombieType aZombieType = PickGraveRisingZombieType(aZombiePoints);
 		BungeeDropZombie(&aBungeeDropGrid, aZombieType);
-		aZombiePoints -= GetZombieDefinition(aZombieType).mZombieValue;
+		aZombiePoints -= gZombieDefs[aZombieType].mZombieValue;
 		if (aZombiePoints < 1)
 		{
 			aZombiePoints = 1;
@@ -4987,7 +4987,7 @@ void Board::SpawnZombiesFromGraves()
 		}
 
 		aZombie->RiseFromGrave(aGridItem->mGridX, aGridItem->mGridY);
-		aZombiePoints -= GetZombieDefinition(aZombieType).mZombieValue;
+		aZombiePoints -= gZombieDefs[aZombieType].mZombieValue;
 		if (aZombieType < 1)
 		{
 			aZombiePoints = 1;
@@ -5142,7 +5142,7 @@ void Board::SurvivalSaveScore()
 		return;
 
 	int aFlagsCompleted = GetSurvivalFlagsCompleted();
-	int& aFlagsRecord = mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()];
+	int& aFlagsRecord = mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1];
 	if (aFlagsCompleted > aFlagsRecord)
 	{
 		aFlagsRecord = aFlagsCompleted;
@@ -5157,7 +5157,7 @@ void Board::PuzzleSaveStreak()
 		return;
 
 	int aStreak = mChallenge->mSurvivalStage + 1;
-	int& aRecord = mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()];
+	int& aRecord = mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1];
 	if (aStreak > aRecord)
 	{
 		aRecord = aStreak;
@@ -6799,7 +6799,7 @@ void Board::DrawLevel(Graphics* g)
 	}
 	else
 	{
-		aLevelStr = mApp->GetCurrentChallengeDef().mChallengeName;
+		aLevelStr = gChallengeDefs[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1].mChallengeName; //GetCurrentChallengeDef
 		if (mApp->IsSurvivalMode() || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND)
 		{
 			int aFlags = GetSurvivalFlagsCompleted();
@@ -8046,47 +8046,47 @@ void Board::KeyChar(SexyChar theChar)
 		}
 		else if (theChar == _S('0'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 0;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 0;
 			mChallenge->TreeOfWisdomGrow();
 		}
 		else if (theChar == _S('1'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 9;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 9;
 			mChallenge->TreeOfWisdomGrow();
 		}
 		else if (theChar == _S('2'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 19;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 19;
 			mChallenge->TreeOfWisdomGrow();
 		}
 		else if (theChar == _S('3'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 29;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 29;
 			mChallenge->TreeOfWisdomGrow();
 		}
 		else if (theChar == _S('4'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 39;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 39;
 			mChallenge->TreeOfWisdomGrow();
 		}
 		else if (theChar == _S('5'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 49;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 49;
 			mChallenge->TreeOfWisdomGrow();
 		}
 		else if (theChar == _S('6'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 98;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 98;
 			mChallenge->TreeOfWisdomGrow();
 		}
 		else if (theChar == _S('7'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 498;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 498;
 			mChallenge->TreeOfWisdomGrow();
 		}
 		else if (theChar == _S('8'))
 		{
-			mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()] = 998;
+			mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1] = 998;
 			mChallenge->TreeOfWisdomGrow();
 		}
 

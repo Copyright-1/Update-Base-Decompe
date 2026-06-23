@@ -5300,7 +5300,7 @@ bool Challenge::TreeOfWisdomMouseOn(int theX, int theY)
 
 int Challenge::TreeOfWisdomGetSize()
 {
-	return mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()];
+	return mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1];
 }
 
 //0x42CA30
@@ -5442,7 +5442,7 @@ void Challenge::TreeOfWisdomInit()
 //0x42D1F0
 void Challenge::TreeOfWisdomGrow()
 {
-	mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()]++;
+	mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1]++;
 	int aTreeSize = TreeOfWisdomGetSize();
 	mApp->ReanimationGet(mReanimChallenge)->PlayReanim(StrFormat("anim_grow%d", ClampInt(aTreeSize, 1, 51)).c_str(), REANIM_PLAY_ONCE_AND_HOLD, 0, 8.0f);
 	mApp->PlayFoley(FOLEY_PLANTGROW);

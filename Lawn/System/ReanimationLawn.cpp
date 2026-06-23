@@ -196,7 +196,7 @@ MemoryImage* ReanimatorCache::MakeCachedPlantFrame(SeedType theSeedType, DrawVar
 	Graphics aMemoryGraphics(aMemoryImage);
 	aMemoryGraphics.SetLinearBlend(true);
 
-	PlantDefinition& aPlantDef = GetPlantDefinition(theSeedType);
+	PlantDefinition& aPlantDef = gPlantDefs[theSeedType];
 	//TOD_ASSERT(aPlantDef.mReanimationType != ReanimationType::REANIM_NONE);
 
 	if (theSeedType == SeedType::SEED_POTATOMINE)
@@ -254,7 +254,7 @@ MemoryImage* ReanimatorCache::MakeCachedZombieFrame(ZombieType theZombieType)
 	{
 		aUseZombieType = ZombieType::ZOMBIE_POLEVAULTER;
 	}
-	ZombieDefinition& aZombieDef = GetZombieDefinition(aUseZombieType);
+	ZombieDefinition& aZombieDef = gZombieDefs[aUseZombieType];
 	TOD_ASSERT(aZombieDef.mReanimationType != ReanimationType::REANIM_NONE);
 
 	float aPosX = 40.0f, aPosY = 40.0f;

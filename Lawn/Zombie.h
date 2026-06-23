@@ -409,6 +409,4 @@ public:
 };
 extern ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES];  //0x69DA80
 
-/*inline*/ ZombieDefinition&            GetZombieDefinition(ZombieType theZombieType);
-
 #endif

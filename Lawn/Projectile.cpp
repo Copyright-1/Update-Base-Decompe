@@ -288,7 +288,7 @@ void Projectile::CheckForCollision()
 		Plant* aPlant = FindCollisionTargetPlant();
 		if (aPlant)
 		{
-			const ProjectileDefinition& aProjectileDef = GetProjectileDef();
+			const ProjectileDefinition& aProjectileDef = gProjectileDefinition[mProjectileType];
 			aPlant->mPlantHealth -= aProjectileDef.mDamage;
 			aPlant->mEatenFlashCountdown = max(aPlant->mEatenFlashCountdown, 25);
 
@@ -442,7 +442,7 @@ bool Projectile::IsZombieHitBySplash(Zombie* theZombie)
 //0x46D390
 void Projectile::DoSplashDamage(Zombie* theZombie)
 {
-	const ProjectileDefinition& aProjectileDef = GetProjectileDef();
+	const ProjectileDefinition& aProjectileDef = gProjectileDefinition[mProjectileType];
 
 	int aZombiesGetSplashed = 0;
 	Zombie* aZombie = nullptr;
@@ -596,7 +596,7 @@ void Projectile::UpdateLobMotion()
 		}
 		else
 		{
-			aPlant->mPlantHealth -= GetProjectileDef().mDamage;
+			aPlant->mPlantHealth -= gProjectileDefinition[mProjectileType].mDamage;
 			aPlant->mEatenFlashCountdown = max(aPlant->mEatenFlashCountdown, 25);
 			mApp->PlayFoley(FoleyType::FOLEY_SPLAT);
 			Die();
@@ -818,7 +818,7 @@ void Projectile::DoImpact(Zombie* theZombie)
 	else if (theZombie)
 	{
 		unsigned int aDamageFlags = GetDamageFlags(theZombie);
-		theZombie->TakeDamage(GetProjectileDef().mDamage, aDamageFlags);
+		theZombie->TakeDamage(gProjectileDefinition[mProjectileType].mDamage, aDamageFlags);
 	}
 
 	float aLastPosX = mPosX - mVelX;
@@ -959,7 +959,7 @@ void Projectile::Update()
 //0x46E540
 void Projectile::Draw(Graphics* g)
 {
-	const ProjectileDefinition& aProjectileDef = GetProjectileDef();
+	const ProjectileDefinition& aProjectileDef = gProjectileDefinition[mProjectileType];
 
 	Image* aImage;
 	float aScale = 1.0f;
@@ -1225,12 +1225,4 @@ void Projectile::ConvertToPea(int theGridX)
 	mProjectileType = ProjectileType::PROJECTILE_PEA;
 	mHitTorchwoodGridX = theGridX;
 	mApp->PlayFoley(FoleyType::FOLEY_THROW);
-}
-
-ProjectileDefinition& Projectile::GetProjectileDef()
-{
-	ProjectileDefinition& aProjectileDef = gProjectileDefinition[(int)mProjectileType];
-	TOD_ASSERT(aProjectileDef.mProjectileType == mProjectileType);
-
-	return aProjectileDef;
 }

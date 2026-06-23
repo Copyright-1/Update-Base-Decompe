@@ -321,5 +321,3 @@ public:
     const SexyChar*         mPlantName;         //+0x20
 };
 extern PlantDefinition gPlantDefs[SeedType::NUM_SEED_TYPES];
-
-/*inline*/ PlantDefinition& GetPlantDefinition(SeedType theSeedType);

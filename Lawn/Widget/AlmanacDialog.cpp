@@ -282,7 +282,7 @@ void AlmanacDialog::DrawPlants(Graphics* g)
 	{
 		int aPosX, aPosY;
 		GetSeedPosition(aSeedType, aPosX, aPosY);
-		PlantDefinition& aPlantDef = GetPlantDefinition(aSeedType);
+		PlantDefinition& aPlantDef = gPlantDefs[aSeedType];
 
 		if (mApp->SeedTypeAvailable(aSeedType))
 		{
@@ -332,7 +332,7 @@ void AlmanacDialog::DrawPlants(Graphics* g)
 	}
 
 	g->DrawImage(Sexy::IMAGE_ALMANAC_PLANTCARD, 459, 86);
-	PlantDefinition& aPlantDef = GetPlantDefinition(mSelectedSeed);
+	PlantDefinition& aPlantDef = gPlantDefs[mSelectedSeed];
 	SexyString aName = Plant::GetNameString(mSelectedSeed, SEED_NONE);
 	SexyString aDescriptionName = StrFormat(_S("[%s_DESCRIPTION]"), aPlantDef.mPlantName);
 	//TodDrawString(g, to_string((int)mIncrement), 32, 32, Sexy::FONT_DWARVENTODCRAFT18YELLOW, Color::White, DS_ALIGN_CENTER);
@@ -366,7 +366,7 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 		ZombieType aZombieType = GetZombieType(i);
 		int aPosX, aPosY;
 		GetZombiePosition(aZombieType, aPosX, aPosY);
-		ZombieDefinition aZombieDefiniton = GetZombieDefinition(aZombieType);
+		ZombieDefinition aZombieDefiniton = gZombieDefs[aZombieType];
 		if (aZombieType != ZombieType::ZOMBIE_INVALID)
 		{
 			if (!ZombieIsShown(aZombieType))
@@ -463,7 +463,7 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 	}
 	g->DrawImage(Sexy::IMAGE_ALMANAC_ZOMBIECARD, 455, 78);
 
-	ZombieDefinition& aZombieDef = GetZombieDefinition(mSelectedZombie);
+	ZombieDefinition& aZombieDef = gZombieDefs[mSelectedZombie];
 	SexyString aName = ZombieHasSilhouette(mSelectedZombie) ? _S("???") : StrFormat(_S("[%s]"), aZombieDef.mZombieName);
 	TodDrawString(g, aName, 613, 362, Sexy::FONT_DWARVENTODCRAFT18GREENINSET, Color(190, 255, 235, 255), DS_ALIGN_CENTER);
 
@@ -542,7 +542,7 @@ SeedType AlmanacDialog::SeedHitTest(int x, int y)
 	{
 		for (SeedType aSeedType = SeedType::SEED_PEASHOOTER; aSeedType < NUM_ALMANAC_SEEDS; aSeedType = (SeedType)(aSeedType + 1))
 		{
-			PlantDefinition& aPlantDef = GetPlantDefinition(aSeedType);
+			PlantDefinition& aPlantDef = gPlantDefs[aSeedType];
 			if (mApp->SeedTypeAvailable(aSeedType))
 			{
 				int aSeedX, aSeedY;
@@ -562,7 +562,7 @@ int AlmanacDialog::ZombieHasSilhouette(ZombieType theZombieType)
 		return false;
 
 	// 排除上述情况后，若已完成雪人僵尸出现的关卡（冒险模式一周目 4-10 关卡），则雪人僵尸显示为剪影
-	return mApp->HasFinishedAdventure() || mApp->mPlayerInfo->GetLevel() > GetZombieDefinition(ZombieType::ZOMBIE_YETI).mStartingLevel;
+	return mApp->HasFinishedAdventure() || mApp->mPlayerInfo->GetLevel() > gZombieDefs[ZombieType::ZOMBIE_YETI].mStartingLevel;
 }
 
 //0x403A10
@@ -585,7 +585,7 @@ int AlmanacDialog::ZombieIsShown(ZombieType theZombieType)
 			return true;
 
 		int aLevel = mApp->mPlayerInfo->GetLevel();
-		int aStart = GetZombieDefinition(theZombieType).mStartingLevel;
+		int aStart = gZombieDefs[theZombieType].mStartingLevel;
 		// 要求已经达到僵尸首次出现的关卡
 		// 对于不能通过自然刷怪出现的僵尸（小鬼僵尸、雪橇僵尸小队、伴舞僵尸），额外要求已通过其首次出现的关卡或已击败过该僵尸
 		return aStart <= aLevel && (aStart != aLevel || !Board::IsZombieTypeSpawnedOnly(theZombieType) || gZombieDefeated[theZombieType]);
@@ -601,7 +601,7 @@ int AlmanacDialog::ZombieIsShown(ZombieType theZombieType)
 int AlmanacDialog::ZombieHasDescription(ZombieType theZombieType)
 {
 	int aLevel = mApp->mPlayerInfo->GetLevel();
-	int aStart = GetZombieDefinition(theZombieType).mStartingLevel;
+	int aStart = gZombieDefs[theZombieType].mStartingLevel;
 
 	// 对于雪人僵尸
 	if (theZombieType == ZombieType::ZOMBIE_YETI)
@@ -641,7 +641,7 @@ ZombieType AlmanacDialog::ZombieHitTest(int x, int y)
 		for (int i = 0; i <= NUM_ALMANAC_ZOMBIES; i++)
 		{
 			ZombieType aZombieType = GetZombieType(i);
-			ZombieDefinition aZombieDefiniton = GetZombieDefinition(aZombieType);
+			ZombieDefinition aZombieDefiniton = gZombieDefs[aZombieType];
 			if (aZombieType != ZombieType::ZOMBIE_INVALID)
 			{
 				int aZombieX, aZombieY;

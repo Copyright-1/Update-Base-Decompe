@@ -507,7 +507,7 @@ void CutScene::PlaceStreetZombies()
 				break;
 			}
 
-			aZombieValueTotal += GetZombieDefinition(aZombieType).mZombieValue;
+			aZombieValueTotal += gZombieDefs[aZombieType].mZombieValue;
 
 			if (aZombieType == ZombieType::ZOMBIE_FLAG)
 			{
@@ -882,7 +882,7 @@ void CutScene::StartLevelIntro()
 	{
 		if (mApp->IsSurvivalMode())
 		{
-			aHouseMessage = mApp->GetCurrentChallengeDef().mChallengeName;
+			aHouseMessage = gChallengeDefs[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1].mChallengeName;
 		}
 		else if (mApp->IsAdventureMode())
 		{
@@ -905,7 +905,7 @@ void CutScene::StartLevelIntro()
 		}
 		else
 		{
-			aHouseMessage = mApp->GetCurrentChallengeDef().mChallengeName;
+			aHouseMessage = gChallengeDefs[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1].mChallengeName;
 		}
 	}
 

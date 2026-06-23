@@ -72,14 +72,6 @@ static ZombieType gBossZombieList[] = {  //0x69DE1C
     ZombieType::ZOMBIE_GARGANTUAR
 };
 
-ZombieDefinition& GetZombieDefinition(ZombieType theZombieType)
-{
-    TOD_ASSERT(theZombieType >= 0 && theZombieType < NUM_ZOMBIE_TYPES);
-    TOD_ASSERT(gZombieDefs[theZombieType].mZombieType == theZombieType);
-
-    return gZombieDefs[theZombieType];
-}
-
 //0x522510
 Zombie::Zombie()
 {
@@ -170,7 +162,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
     PickRandomSpeed();
     mBodyHealth = 270;
 
-    const ZombieDefinition& aZombieDef = GetZombieDefinition(mZombieType);
+    const ZombieDefinition& aZombieDef = gZombieDefs[mZombieType];
     RenderLayer aRenderLayer = RenderLayer::RENDER_LAYER_ZOMBIE;
     int aRenderOffset = 4;
     if (aZombieDef.mReanimationType != ReanimationType::REANIM_NONE)
@@ -7222,7 +7214,7 @@ void Zombie::DropLoot()
         return;
 
     mDroppedLoot = true;
-    int aZombieValue = GetZombieDefinition(mZombieType).mZombieValue;
+    int aZombieValue = gZombieDefs[mZombieType].mZombieValue;
     if (mApp->IsLittleTroubleLevel() && Rand(4) != 0)
     {
         return;
@@ -10590,7 +10582,7 @@ void Zombie::DrawBossPart(Graphics* g, BossPart theBossPart)
 //0x5369E0
 void Zombie::PreloadZombieResources(ZombieType theZombieType)
 {
-    const ZombieDefinition& aZombieDef = GetZombieDefinition(theZombieType);
+    const ZombieDefinition& aZombieDef = gZombieDefs[theZombieType];
     if (aZombieDef.mReanimationType != ReanimationType::REANIM_NONE)
     {
         ReanimatorEnsureDefinitionLoaded(aZombieDef.mReanimationType, true);
@@ -10609,7 +10601,7 @@ void Zombie::PreloadZombieResources(ZombieType theZombieType)
 
         for (int i = 0; i < LENGTH(gBossZombieList); i++)
         {
-            const ZombieDefinition& aDef = GetZombieDefinition(gBossZombieList[i]);
+            const ZombieDefinition& aDef = gZombieDefs[gBossZombieList[i]];
             ReanimatorEnsureDefinitionLoaded(aDef.mReanimationType, true);
         }
     }
