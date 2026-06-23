@@ -7211,7 +7211,7 @@ void Zombie::DropLoot()
     if (!IsOnBoard())
         return;
 
-    AlmanacPlayerDefeatedZombie(mZombieType);
+    gZombieDefeated[mZombieType] = true;
     if (mZombieType == ZombieType::ZOMBIE_YETI)
     {
         mBoard->mKilledYeti = true;

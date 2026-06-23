@@ -475,8 +475,9 @@ void GameSelector::SyncProfile(bool theShowLoading)
 		AddTrophySparkle();
 
 	SyncButtons();
-	AlmanacInitForPlayer();
-	BoardInitForPlayer();
+	for (int i = 0; i < ZombieType::NUM_ZOMBIE_TYPES; i++)
+		gZombieDefeated[i] = false;
+	gShownMoreSunTutorial = false;
 }
 
 //0x44A650

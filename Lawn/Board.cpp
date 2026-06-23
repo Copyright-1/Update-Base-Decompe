@@ -234,11 +234,6 @@ Board::~Board()
 	delete mChallenge;
 }
 
-void BoardInitForPlayer()
-{
-	gShownMoreSunTutorial = false;
-}
-
 //0x408A70
 void Board::DisposeBoard()
 {
