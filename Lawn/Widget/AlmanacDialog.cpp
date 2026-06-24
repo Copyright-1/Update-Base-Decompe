@@ -337,12 +337,12 @@ void AlmanacDialog::DrawPlants(Graphics* g)
 	SexyString aDescriptionName = StrFormat(_S("[%s_DESCRIPTION]"), aPlantDef.mPlantName);
 	//TodDrawString(g, to_string((int)mIncrement), 32, 32, Sexy::FONT_DWARVENTODCRAFT18YELLOW, Color::White, DS_ALIGN_CENTER);
 	TodDrawString(g, aName, 617, 288, Sexy::FONT_DWARVENTODCRAFT18YELLOW, Color::White, DS_ALIGN_CENTER);
-	TodDrawStringWrapped(g, aDescriptionName, Rect(485, 309, 258, 230), Sexy::FONT_BRIANNETOD12, Color(40, 50, 90), DS_ALIGN_LEFT);
+	TodDrawStringWrapped(g, aDescriptionName, Rect(485, 309, 258, 230), Sexy::FONT_BRIANNETOD12, Color(40, 50, 90), DS_ALIGN_LEFT, true);
 
 	if (mSelectedSeed != SeedType::SEED_IMITATER)
 	{
 		SexyString aCostStr = TodReplaceString(StrFormat(_S("{KEYWORD}{COST}:{STAT} %d"), aPlantDef.mSeedCost), _S("{COST}"), _S("[COST]"));
-		TodDrawStringWrapped(g, aCostStr, Rect(485, 520, 134, 50), Sexy::FONT_BRIANNETOD12, Color::White, DS_ALIGN_LEFT);
+		TodDrawStringWrapped(g, aCostStr, Rect(485, 520, 134, 50), Sexy::FONT_BRIANNETOD12, Color::White, DS_ALIGN_LEFT, true);
 
 		SexyString aRechargeStr = TodReplaceString(
 			_S("{KEYWORD}{WAIT_TIME}:{STAT}{WAIT_TIME_LENGTH}"), 
@@ -495,7 +495,7 @@ void AlmanacDialog::DrawZombies(Graphics* g)
 			}
 		}
 	}
-	TodDrawStringWrapped(g, aDescription, Rect(484, 377, 258, 170), Sexy::FONT_BRIANNETOD12, Color(40, 50, 90), aAlign);
+	TodDrawStringWrapped(g, aDescription, Rect(484, 377, 258, 170), Sexy::FONT_BRIANNETOD12, Color(40, 50, 90), aAlign, true);
 }
 
 //0x403810
@@ -642,7 +642,7 @@ ZombieType AlmanacDialog::ZombieHitTest(int x, int y)
 		{
 			ZombieType aZombieType = GetZombieType(i);
 			ZombieDefinition aZombieDefiniton = gZombieDefs[aZombieType];
-			if (aZombieType != ZombieType::ZOMBIE_INVALID)
+			if (aZombieType != ZombieType::ZOMBIE_INVALID && ZombieIsShown(aZombieType))
 			{
 				int aZombieX, aZombieY;
 				GetZombiePosition(aZombieType, aZombieX, aZombieY);

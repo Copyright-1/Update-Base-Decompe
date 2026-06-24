@@ -14,7 +14,7 @@ enum TodStringFormatFlag
 class TodStringListFormat
 {
 public:
-    const char*     mFormatName;
+    const SexyChar* mFormatName;
     Font**          mNewFont;
     Color           mNewColor;
     int             mLineSpacingOffset;
@@ -22,7 +22,7 @@ public:
 
 public:
     TodStringListFormat();
-    TodStringListFormat(const char* theFormatName, Font** theFont, const Color& theColor, int theLineSpacingOffset, unsigned int theFormatFlags);
+    TodStringListFormat(const SexyChar* theFormatName, Font** theFont, const Color& theColor, int theLineSpacingOffset, unsigned int theFormatFlags);
 };
 extern int gTodStringFormatCount;               //[0x69DE4C]
 extern TodStringListFormat* gTodStringFormats;  //[0x69DA34]
@@ -45,7 +45,7 @@ void                TodStringRemoveReturnChars(std::string& theString);
 bool                CharIsSpaceInFormat(char theChar, const TodStringListFormat& theCurrentFormat);
 int                 TodWriteString(Graphics* g, const SexyString& theString, int theX, int theY, TodStringListFormat& theCurrentFormat, int theWidth, DrawStringJustification theJustification, bool drawString, int theOffset, int theLength);
 /*inline*/ int      TodWriteWordWrappedHelper(Graphics* g, const SexyString& theString, int theX, int theY, TodStringListFormat& theCurrentFormat, int theWidth, DrawStringJustification theJustification, bool drawString, int theOffset, int theLength, int theMaxChars);
-int                 TodDrawStringWrappedHelper(Graphics* g, const SexyString& theText, const Rect& theRect, Font* theFont, const Color& theColor, DrawStringJustification theJustification, bool drawString);
-/*inline*/ void		TodDrawStringWrapped(Graphics* g, const SexyString& theText, const Rect& theRect, Font* theFont, const Color& theColor, DrawStringJustification theJustification);
+int                 TodDrawStringWrappedHelper(Graphics* g, const SexyString& theText, const Rect& theRect, Font* theFont, const Color& theColor, DrawStringJustification theJustification, bool drawString, bool reuseFormat = false);
+/*inline*/ void		TodDrawStringWrapped(Graphics* g, const SexyString& theText, const Rect& theRect, Font* theFont, const Color& theColor, DrawStringJustification theJustification, bool reuseFormat = false);
 
 #endif  //__TODSTRINGFILE_H__
