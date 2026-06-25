@@ -63,5 +63,4 @@ const int			STORESCREEN_PAGESTRING_X = 470;
 const int			STORESCREEN_PAGESTRING_Y = 500;
 
 
-//Fix OG bugs
-//#define DO_FIX_BUGS
+//#define DO_FIX_BUGS //Fix OG bugs
