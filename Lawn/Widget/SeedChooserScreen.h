@@ -118,7 +118,6 @@ public:
     void                    CloseSeedChooser();
     virtual void            KeyDown(KeyCode theKey);
     virtual void            KeyChar(SexyChar theChar);
-    virtual void			MouseWheel(int theDelta);
     void                    UpdateAfterPurchase();
 };
 

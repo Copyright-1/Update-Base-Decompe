@@ -69,7 +69,6 @@ public:
     void                    CheckForHighGround();
     bool                    CantHitHighGround();
     void                    DoSplashDamage(Zombie* theZombie);
-    ProjectileDefinition&   GetProjectileDef();
     unsigned int            GetDamageFlags(Zombie* theZombie/* = nullptr*/);
     Rect                    GetProjectileRect();
     void                    UpdateNormalMotion();

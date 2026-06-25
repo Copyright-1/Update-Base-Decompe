@@ -5,14 +5,14 @@
 #include "../../ConstEnums.h"
 
 #define NUM_ALMANAC_SEEDS NUM_SEED_TYPES
-#define NUM_ALMANAC_ZOMBIES NUM_ZOMBIE_TYPES
+#define NUM_ALMANAC_ZOMBIES ZOMBIE_BOSS
 
 constexpr const float			ALMANAC_PLANT_POSITION_X		= 578.0f;
 constexpr const float			ALMANAC_PLANT_POSITION_Y		= 140.0f;
 constexpr const float			ALMANAC_ZOMBIE_POSITION_X		= 559.0f;
 constexpr const float			ALMANAC_ZOMBIE_POSITION_Y		= 175.0f;
 constexpr const int				ALMANAC_INDEXPLANT_POSITION_X	= 167;
-constexpr const int				ALMANAC_INDEXPLANT_POSITION_Y	= 255;
+constexpr const int				ALMANAC_INDEXPLANT_POSITION_Y	= 225;
 constexpr const float			ALMANAC_INDEXZOMBIE_POSITION_X	= 535.0f;
 constexpr const float			ALMANAC_INDEXZOMBIE_POSITION_Y	= 215.0f;
 
@@ -32,8 +32,6 @@ private:
 		ALMANAC_BUTTON_ZOMBIE = 2,
 		ALMANAC_BUTTON_INDEX = 3,
 		AlmanacSlider = 4, 
-		ALMANAC_BUTTON_NEXT = 5,
-		ALMANAC_BUTTON_LAST = 6
 	};
 
 public:
@@ -42,8 +40,6 @@ public:
 	GameButton*					mIndexButton;			//+0x174
 	GameButton*					mPlantButton;			//+0x178
 	GameButton*					mZombieButton;			//+0x17C
-	GameButton* mNextButton;			//+0x178
-	GameButton* mLastButton;			//+0x17C
 	//Sexy::Slider* mSlider;
 	AlmanacPage					mOpenPage;				//+0x180
 	Reanimation*				mReanim[4];				//+0x184
@@ -52,8 +48,6 @@ public:
 	Plant*						mPlant;					//+0x19C
 	Zombie*						mZombie;				//+0x1A0
 	Zombie*						mZombiePerfTest[400];	//+0x1A4
-	float						mIncrement;
-	int mIndexedPage;
 	
 public:
 	AlmanacDialog(LawnApp* theApp);
@@ -86,7 +80,5 @@ public:
 };
 extern int gZombieDefeated[NUM_ZOMBIE_TYPES];
 
-/*inline*/ void					AlmanacInitForPlayer();
-/*inline*/ void					AlmanacPlayerDefeatedZombie(ZombieType theZombieType);
 
 #endif

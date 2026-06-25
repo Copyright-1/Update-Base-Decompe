@@ -30,7 +30,7 @@
 #include "../Sexy.TodLib/TodStringFile.h"
 #include "../SexyAppFramework/WidgetManager.h"
 
-int gZombieWaves[NUM_LEVELS] = {  //0x6A34E8
+unsigned char gZombieWaves[NUM_LEVELS] = {  //0x6A34E8
 	4,  6,  8,  10, 8,  10, 20, 10, 20, 20,
 	10, 20, 10, 20, 10, 10, 20, 10, 20, 20,
 	10, 20, 20, 30, 20, 20, 30, 20, 30, 30,
@@ -313,7 +313,7 @@ Challenge::Challenge()
 	for (int i = 0; i < 6; i++)
 		mReanimClouds[i] = REANIMATIONID_NULL;
 	memset(mBeghouledEated, 0, sizeof(mBeghouledEated));
-	for (int i = 0; i < (int)BeghouledUpgrade::NUM_BEGHOULED_UPGRADES; i++)
+	for (unsigned char i = 0; i < (unsigned char)BeghouledUpgrade::NUM_BEGHOULED_UPGRADES; i++)
 		mBeghouledPurcasedUpgrade[i] = false;
 
 	if (mApp->mBoard && mApp->mGameMode == GAMEMODE_CHALLENGE_SLOT_MACHINE)
@@ -1424,8 +1424,8 @@ void Challenge::BeghouledFlashPlant(int theFlashX, int theFlashY, int theFromX, 
 	}
 
 	Plant* aFlashPlant = mBoard->GetTopPlantAt(theFlashX, theFlashY, PlantPriority::TOPPLANT_ONLY_NORMAL_POSITION);
-	if (aFlashPlant && aFlashPlant->mEatenFlashCountdown <= 300) 
-		aFlashPlant->mEatenFlashCountdown = 300;
+	if (aFlashPlant && aFlashPlant->mBeghouledFlashCountdown <= 300) 
+		aFlashPlant->mBeghouledFlashCountdown = 300;
 }
 
 //0x422510
@@ -1437,9 +1437,9 @@ bool Challenge::BeghouledTwistFlashMatch(BeghouledBoardState* theBoardState, int
 	for (int i = 0; i < 4; i++)
 	{
 		Plant* aPlant = mBoard->GetTopPlantAt(theGridX + (i % 2), theGridY + (i / 2), PlantPriority::TOPPLANT_ANY);
-		if (aPlant && aPlant->mEatenFlashCountdown <= 300)
+		if (aPlant && aPlant->mBeghouledFlashCountdown <= 300)
 		{
-			aPlant->mEatenFlashCountdown = 300;
+			aPlant->mBeghouledFlashCountdown = 300;
 		}
 	}
 	return true;
@@ -2359,7 +2359,7 @@ void Challenge::DrawBeghouled(Graphics* g)
 			float aPixelY = mBoard->GridToPixelY(mChallengeGridX, mChallengeGridY) + 100;
 
 			SexyTransform2D aTransform;
-			TodScaleRotateTransformMatrix(aTransform, aPixelX, aPixelY, -mBoard->mMainCounter * 2 * PI * 0.01f, 1, 1);
+			TodScaleRotateTransformMatrix(aTransform, aPixelX, aPixelY, -mBoard->mMainCounter * 2 * PI * 0.001f, 1, 1);
 
 			Image* aImageOverlay = Sexy::IMAGE_BEGHOULED_TWIST_OVERLAY;
 			Rect aSrcRect = Rect(0, 0, aImageOverlay->mWidth, aImageOverlay->mHeight);
@@ -5300,7 +5300,7 @@ bool Challenge::TreeOfWisdomMouseOn(int theX, int theY)
 
 int Challenge::TreeOfWisdomGetSize()
 {
-	return mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()];
+	return mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1];
 }
 
 //0x42CA30
@@ -5442,7 +5442,7 @@ void Challenge::TreeOfWisdomInit()
 //0x42D1F0
 void Challenge::TreeOfWisdomGrow()
 {
-	mApp->mPlayerInfo->mChallengeRecords[mApp->GetCurrentChallengeIndex()]++;
+	mApp->mPlayerInfo->mChallengeRecords[mApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1]++;
 	int aTreeSize = TreeOfWisdomGetSize();
 	mApp->ReanimationGet(mReanimChallenge)->PlayReanim(StrFormat("anim_grow%d", ClampInt(aTreeSize, 1, 51)).c_str(), REANIM_PLAY_ONCE_AND_HOLD, 0, 8.0f);
 	mApp->PlayFoley(FOLEY_PLANTGROW);

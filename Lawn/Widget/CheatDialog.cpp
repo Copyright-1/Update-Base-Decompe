@@ -75,7 +75,7 @@ void CheatDialog::EditWidgetText(int theId, const SexyString& theString)
 
 bool CheatDialog::AllowChar(int theId, SexyChar theChar)
 {
-	return isdigit(theChar) || theChar == _S('-') || theChar == _S('c') || theChar == _S('C') || theChar == _S('f') || theChar == _S('F');
+	return isdigit((unsigned char)theChar) || theChar == _S('-') || theChar == _S('c') || theChar == _S('C') || theChar == _S('f') || theChar == _S('F');
 }
 
 bool CheatDialog::ApplyCheat()

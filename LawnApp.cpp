@@ -1400,7 +1400,7 @@ bool LawnApp::UpdatePlayerProfileForFinishingLevel()
 	else if (IsPuzzleMode())
 	{
 		aUnlockedNewChallenge = !HasBeatenChallenge(mGameMode);
-		mPlayerInfo->mChallengeRecords[GetCurrentChallengeIndex()]++;
+		mPlayerInfo->mChallengeRecords[mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1]++;  //GetCurrentChallengeIndex()
 
 		if (!HasFinishedAdventure() && (mGameMode == GameMode::GAMEMODE_SCARY_POTTER_3 || mGameMode == GameMode::GAMEMODE_PUZZLE_I_ZOMBIE_3))
 		{
@@ -1422,7 +1422,7 @@ bool LawnApp::UpdatePlayerProfileForFinishingLevel()
 	else
 	{
 		aUnlockedNewChallenge = !HasBeatenChallenge(mGameMode);
-		mPlayerInfo->mChallengeRecords[GetCurrentChallengeIndex()]++;
+		mPlayerInfo->mChallengeRecords[mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1]++; //GetCurrentChallengeIndex()
 
 		if (aUnlockedNewChallenge && HasFinishedAdventure())
 		{
@@ -2239,16 +2239,6 @@ bool LawnApp::IsNight()
 	return (mPlayerInfo->mLevel >= 11 && mPlayerInfo->mLevel <= 20) || (mPlayerInfo->mLevel >= 31 && mPlayerInfo->mLevel <= 40) || mPlayerInfo->mLevel == 50;
 }
 
-int LawnApp::GetCurrentChallengeIndex()
-{
-	return (int)mGameMode - (int)GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1;
-}
-
-ChallengeDefinition& LawnApp::GetCurrentChallengeDef()
-{
-	return GetChallengeDefinition(GetCurrentChallengeIndex());
-}
-
 PottedPlant* LawnApp::GetPottedPlantByIndex(int thePottedPlantIndex)
 {
 	TOD_ASSERT(thePottedPlantIndex >= 0 && thePottedPlantIndex < mPlayerInfo->mNumPottedPlants);
@@ -2498,7 +2488,7 @@ bool LawnApp::CanShowZenGarden()
 
 bool LawnApp::CanSpawnYetis()
 {
-	const ZombieDefinition& aZombieDef = GetZombieDefinition(ZombieType::ZOMBIE_YETI);
+	const ZombieDefinition& aZombieDef = gZombieDefs[ZombieType::ZOMBIE_YETI];
 	return HasFinishedAdventure() && (mPlayerInfo->mFinishedAdventure >= 2 || mPlayerInfo->mLevel >= aZombieDef.mStartingLevel);
 }
 
@@ -3054,7 +3044,7 @@ int LawnApp::GetNumPreloadingTasks()
 
 		for (ZombieType i = ZombieType::ZOMBIE_NORMAL; i < ZombieType::NUM_ZOMBIE_TYPES;i = (ZombieType)((int)i + 1))
 		{
-			if (HasFinishedAdventure() || mPlayerInfo->mLevel >= GetZombieDefinition(i).mStartingLevel)
+			if (HasFinishedAdventure() || mPlayerInfo->mLevel >= gZombieDefs[i].mStartingLevel)
 			{
 				if (i != ZombieType::ZOMBIE_BOSS &&
 					i != ZombieType::ZOMBIE_CATAPULT &&
@@ -3126,7 +3116,7 @@ void LawnApp::PreloadForUser()
 
 		for (ZombieType i = ZombieType::ZOMBIE_NORMAL; i < ZombieType::NUM_ZOMBIE_TYPES;i = (ZombieType)((int)i + 1))
 		{
-			if (HasFinishedAdventure() || mPlayerInfo->mLevel >= GetZombieDefinition(i).mStartingLevel)
+			if (HasFinishedAdventure() || mPlayerInfo->mLevel >= gZombieDefs[i].mStartingLevel)
 			{
 				continue;
 			}
@@ -3256,7 +3246,7 @@ int LawnApp::GetNumTrophies(ChallengePage thePage)
 
 	for (int i = 0; i < NUM_CHALLENGE_MODES; i++)
 	{
-		const ChallengeDefinition& aDef = GetChallengeDefinition(i);
+		const ChallengeDefinition& aDef = gChallengeDefs[i];
 		if (aDef.mPage == thePage && HasBeatenChallenge(aDef.mChallengeMode))
 		{
 			aNumTrophies++;
@@ -3375,8 +3365,7 @@ SexyString LawnGetCurrentLevelName()
 	{
 		return StrFormat(_S("F%d"), gLawnApp->GetStageString(gLawnApp->mBoard->mLevel).c_str());
 	}
-
-	return gLawnApp->GetCurrentChallengeDef().mChallengeName;
+	return gChallengeDefs[gLawnApp->mGameMode - GameMode::GAMEMODE_SURVIVAL_NORMAL_STAGE_1].mChallengeName;
 }
 
 //0x456060

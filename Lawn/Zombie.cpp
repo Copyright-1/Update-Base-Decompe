@@ -18,41 +18,41 @@
 #include "../Sexy.TodLib/TodParticle.h"
 
 ZombieDefinition gZombieDefs[NUM_ZOMBIE_TYPES] = {  //0x69DA80
-    { ZOMBIE_NORMAL,            REANIM_ZOMBIE,              1,      1,      1,      4000,   _S("ZOMBIE") ,0 },
-    { ZOMBIE_FLAG,              REANIM_ZOMBIE,              1,      1,      1,      0,      _S("FLAG_ZOMBIE") ,0 },
-    { ZOMBIE_TRAFFIC_CONE,      REANIM_ZOMBIE,              2,      3,      1,      4000,   _S("CONEHEAD_ZOMBIE") ,0 },
-    { ZOMBIE_POLEVAULTER,       REANIM_POLEVAULTER,         2,      6,      5,      2000,   _S("POLE_VAULTING_ZOMBIE") ,0 },
-    { ZOMBIE_PAIL,              REANIM_ZOMBIE,              4,      8,      1,      3000,   _S("BUCKETHEAD_ZOMBIE") ,0 },
-    { ZOMBIE_NEWSPAPER,         REANIM_ZOMBIE_NEWSPAPER,    2,      11,     1,      1000,   _S("NEWSPAPER_ZOMBIE") ,0 },
-    { ZOMBIE_DOOR,              REANIM_ZOMBIE,              4,      13,     5,      3500,   _S("SCREEN_DOOR_ZOMBIE") ,0 },
-    { ZOMBIE_FOOTBALL,          REANIM_ZOMBIE_FOOTBALL,     7,      16,     5,      2000,   _S("FOOTBALL_ZOMBIE") ,0 },
-    { ZOMBIE_DANCER,            REANIM_DANCER,              5,      18,     5,      1000,   _S("DANCING_ZOMBIE") ,0 },
-    { ZOMBIE_BACKUP_DANCER,     REANIM_BACKUP_DANCER,       1,      18,     1,      0,      _S("BACKUP_DANCER") ,0 },
-    { ZOMBIE_DUCKY_TUBE,        REANIM_ZOMBIE,              1,      21,     5,      0,      _S("DUCKY_TUBE_ZOMBIE") ,0 },
-    { ZOMBIE_SNORKEL,           REANIM_SNORKEL,             3,      23,     10,     2000,   _S("SNORKEL_ZOMBIE") ,0 },
-    { ZOMBIE_ZAMBONI,           REANIM_ZOMBIE_ZAMBONI,      7,      26,     10,     2000,   _S("ZOMBONI") ,0 },
-    { ZOMBIE_BOBSLED,           REANIM_BOBSLED,             3,      26,     10,     2000,   _S("ZOMBIE_BOBSLED_TEAM") ,0 },
-    { ZOMBIE_DOLPHIN_RIDER,     REANIM_ZOMBIE_DOLPHINRIDER, 3,      28,     10,     1500,   _S("DOLPHIN_RIDER_ZOMBIE") ,0 },
-    { ZOMBIE_JACK_IN_THE_BOX,   REANIM_JACKINTHEBOX,        3,      31,     10,     1000,   _S("JACK_IN_THE_BOX_ZOMBIE") ,0 },
-    { ZOMBIE_BALLOON,           REANIM_BALLOON,             2,      33,     10,     2000,   _S("BALLOON_ZOMBIE") ,0 },
-    { ZOMBIE_DIGGER,            REANIM_DIGGER,              4,      36,     10,     1000,   _S("DIGGER_ZOMBIE") ,0 },
-    { ZOMBIE_POGO,              REANIM_POGO,                4,      38,     10,     1000,   _S("POGO_ZOMBIE") ,0 },
-    { ZOMBIE_YETI,              REANIM_YETI,                4,      40,     1,      1,      _S("ZOMBIE_YETI") ,0 },
-    { ZOMBIE_BUNGEE,            REANIM_BUNGEE,              3,      41,     10,     1000,   _S("BUNGEE_ZOMBIE") ,0 },
-    { ZOMBIE_LADDER,            REANIM_LADDER,              4,      43,     10,     1000,   _S("LADDER_ZOMBIE") ,0 },
-    { ZOMBIE_CATAPULT,          REANIM_CATAPULT,            5,      46,     10,     1500,   _S("CATAPULT_ZOMBIE") ,0 },
-    { ZOMBIE_GARGANTUAR,        REANIM_GARGANTUAR,          10,     48,     15,     1500,   _S("GARGANTUAR") ,0 },
-    { ZOMBIE_IMP,               REANIM_IMP,                 10,     48,     1,      0,      _S("IMP") ,0 },
-    { ZOMBIE_BOSS,              REANIM_BOSS,                10,     50,     1,      0,      _S("BOSS") ,0 },
-    { ZOMBIE_PEA_HEAD,          REANIM_ZOMBIE,              1,      99,     1,      4000,   _S("PEASHOOTER_ZOMBIE") ,0 },
-    { ZOMBIE_WALLNUT_HEAD,      REANIM_ZOMBIE,              4,      99,     1,      3000,   _S("WALLNUT_ZOMBIE") ,0 },
-    { ZOMBIE_JALAPENO_HEAD,     REANIM_ZOMBIE,              3,      99,     10,     1000,   _S("JALAPENO_ZOMBIE") ,0 },
-    { ZOMBIE_GATLING_HEAD,      REANIM_ZOMBIE,              3,      99,     10,     2000,   _S("GATLING_ZOMBIE") ,0 },
-    { ZOMBIE_SQUASH_HEAD,       REANIM_ZOMBIE,              3,      99,     10,     2000,   _S("SQUASH_ZOMBIE") ,1 },
-    { ZOMBIE_TALLNUT_HEAD,      REANIM_ZOMBIE,              4,      99,     10,     2000,   _S("TALLNUT_ZOMBIE") ,1 },
-    { ZOMBIE_REDEYE_GARGANTUAR, REANIM_GARGANTUAR,          10,     48,     15,     6000,   _S("REDEYED_GARGANTUAR") ,1 },
-    { ZOMBIE_TRASHCAN,          REANIM_ZOMBIE,              3,      99,     5,      3500,   _S("TRASH_CAN_ZOMBIE") ,1 },
-    { ZOMBIE_GIGA_FOOTBALL,     REANIM_ZOMBIE_GIGA_FOOTBALL, 9,     99,     5,      1500,   _S("GIGA_FOOTBALL_ZOMBIE") ,1 },
+    { ZOMBIE_NORMAL,            REANIM_ZOMBIE,              1,      1,      1,      4000,   _S("ZOMBIE") },
+    { ZOMBIE_FLAG,              REANIM_ZOMBIE,              1,      1,      1,      0,      _S("FLAG_ZOMBIE") },
+    { ZOMBIE_TRAFFIC_CONE,      REANIM_ZOMBIE,              2,      3,      1,      4000,   _S("CONEHEAD_ZOMBIE") },
+    { ZOMBIE_POLEVAULTER,       REANIM_POLEVAULTER,         2,      6,      5,      2000,   _S("POLE_VAULTING_ZOMBIE") },
+    { ZOMBIE_PAIL,              REANIM_ZOMBIE,              4,      8,      1,      3000,   _S("BUCKETHEAD_ZOMBIE") },
+    { ZOMBIE_NEWSPAPER,         REANIM_ZOMBIE_NEWSPAPER,    2,      11,     1,      1000,   _S("NEWSPAPER_ZOMBIE") },
+    { ZOMBIE_DOOR,              REANIM_ZOMBIE,              4,      13,     5,      3500,   _S("SCREEN_DOOR_ZOMBIE") },
+    { ZOMBIE_FOOTBALL,          REANIM_ZOMBIE_FOOTBALL,     7,      16,     5,      2000,   _S("FOOTBALL_ZOMBIE") },
+    { ZOMBIE_DANCER,            REANIM_DANCER,              5,      18,     5,      1000,   _S("DANCING_ZOMBIE") },
+    { ZOMBIE_BACKUP_DANCER,     REANIM_BACKUP_DANCER,       1,      18,     1,      0,      _S("BACKUP_DANCER") },
+    { ZOMBIE_DUCKY_TUBE,        REANIM_ZOMBIE,              1,      21,     5,      0,      _S("DUCKY_TUBE_ZOMBIE") },
+    { ZOMBIE_SNORKEL,           REANIM_SNORKEL,             3,      23,     10,     2000,   _S("SNORKEL_ZOMBIE") },
+    { ZOMBIE_ZAMBONI,           REANIM_ZOMBIE_ZAMBONI,      7,      26,     10,     2000,   _S("ZOMBONI") },
+    { ZOMBIE_BOBSLED,           REANIM_BOBSLED,             3,      26,     10,     2000,   _S("ZOMBIE_BOBSLED_TEAM") },
+    { ZOMBIE_DOLPHIN_RIDER,     REANIM_ZOMBIE_DOLPHINRIDER, 3,      28,     10,     1500,   _S("DOLPHIN_RIDER_ZOMBIE") },
+    { ZOMBIE_JACK_IN_THE_BOX,   REANIM_JACKINTHEBOX,        3,      31,     10,     1000,   _S("JACK_IN_THE_BOX_ZOMBIE") },
+    { ZOMBIE_BALLOON,           REANIM_BALLOON,             2,      33,     10,     2000,   _S("BALLOON_ZOMBIE") },
+    { ZOMBIE_DIGGER,            REANIM_DIGGER,              4,      36,     10,     1000,   _S("DIGGER_ZOMBIE") },
+    { ZOMBIE_POGO,              REANIM_POGO,                4,      38,     10,     1000,   _S("POGO_ZOMBIE") },
+    { ZOMBIE_YETI,              REANIM_YETI,                4,      40,     1,      1,      _S("ZOMBIE_YETI") },
+    { ZOMBIE_BUNGEE,            REANIM_BUNGEE,              3,      41,     10,     1000,   _S("BUNGEE_ZOMBIE") },
+    { ZOMBIE_LADDER,            REANIM_LADDER,              4,      43,     10,     1000,   _S("LADDER_ZOMBIE") },
+    { ZOMBIE_CATAPULT,          REANIM_CATAPULT,            5,      46,     10,     1500,   _S("CATAPULT_ZOMBIE") },
+    { ZOMBIE_GARGANTUAR,        REANIM_GARGANTUAR,          10,     48,     15,     1500,   _S("GARGANTUAR") },
+    { ZOMBIE_IMP,               REANIM_IMP,                 10,     48,     1,      0,      _S("IMP") },
+    { ZOMBIE_BOSS,              REANIM_BOSS,                10,     50,     1,      0,      _S("BOSS") },
+    { ZOMBIE_PEA_HEAD,          REANIM_ZOMBIE,              1,      99,     1,      4000,   _S("PEASHOOTER_ZOMBIE") },
+    { ZOMBIE_WALLNUT_HEAD,      REANIM_ZOMBIE,              4,      99,     1,      3000,   _S("WALLNUT_ZOMBIE") },
+    { ZOMBIE_JALAPENO_HEAD,     REANIM_ZOMBIE,              3,      99,     10,     1000,   _S("JALAPENO_ZOMBIE") },
+    { ZOMBIE_GATLING_HEAD,      REANIM_ZOMBIE,              3,      99,     10,     2000,   _S("GATLING_ZOMBIE") },
+    { ZOMBIE_SQUASH_HEAD,       REANIM_ZOMBIE,              3,      99,     10,     2000,   _S("SQUASH_ZOMBIE") },
+    { ZOMBIE_TALLNUT_HEAD,      REANIM_ZOMBIE,              4,      99,     10,     2000,   _S("TALLNUT_ZOMBIE") },
+    { ZOMBIE_REDEYE_GARGANTUAR, REANIM_GARGANTUAR,          10,     48,     15,     6000,   _S("REDEYED_GARGANTUAR") },
+    { ZOMBIE_TRASHCAN,          REANIM_ZOMBIE,              3,      99,     5,      3500,   _S("TRASH_CAN_ZOMBIE") },
+    { ZOMBIE_GIGA_FOOTBALL,     REANIM_ZOMBIE_GIGA_FOOTBALL, 9,     99,     5,      1500,   _S("GIGA_FOOTBALL_ZOMBIE") },
 };
 
 static ZombieType gBossZombieList[] = {  //0x69DE1C
@@ -71,14 +71,6 @@ static ZombieType gBossZombieList[] = {  //0x69DE1C
     ZombieType::ZOMBIE_GIGA_FOOTBALL,
     ZombieType::ZOMBIE_GARGANTUAR
 };
-
-ZombieDefinition& GetZombieDefinition(ZombieType theZombieType)
-{
-    TOD_ASSERT(theZombieType >= 0 && theZombieType < NUM_ZOMBIE_TYPES);
-    TOD_ASSERT(gZombieDefs[theZombieType].mZombieType == theZombieType);
-
-    return gZombieDefs[theZombieType];
-}
 
 //0x522510
 Zombie::Zombie()
@@ -170,7 +162,7 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
     PickRandomSpeed();
     mBodyHealth = 270;
 
-    const ZombieDefinition& aZombieDef = GetZombieDefinition(mZombieType);
+    const ZombieDefinition& aZombieDef = gZombieDefs[mZombieType];
     RenderLayer aRenderLayer = RenderLayer::RENDER_LAYER_ZOMBIE;
     int aRenderOffset = 4;
     if (aZombieDef.mReanimationType != ReanimationType::REANIM_NONE)
@@ -1741,7 +1733,11 @@ void Zombie::UpdateZombiePolevaulter()
         if (aBodyReanim->mAnimTime > 0.6f && aBodyReanim->mAnimTime <= 0.7f)
         {
             Plant* aPlant = FindPlantTarget(ZombieAttackType::ATTACKTYPE_VAULT);
-            if (aPlant && aPlant->mSeedType == SeedType::SEED_TALLNUT)
+            if (aPlant && aPlant->mSeedType == SeedType::SEED_TALLNUT 
+#ifdef DO_FIX_BUGS
+                && mBoard->GridToPixelX(aPlant->mPlantCol, aPlant->mRow) < mX
+#endif
+                )
             {
                 mApp->PlayFoley(FoleyType::FOLEY_BONK);
                 aJumpEnds = true;
@@ -2090,6 +2086,7 @@ void Zombie::UpdateZombieGargantuar()
                 }
             }
             else
+#endif
             {
                 Plant* aPlant = FindPlantTarget(ZombieAttackType::ATTACKTYPE_CHEW);
                 if (aPlant)
@@ -2128,45 +2125,6 @@ void Zombie::UpdateZombieGargantuar()
                     }
                 }
             }
-#else
-            Plant* aPlant = FindPlantTarget(ZombieAttackType::ATTACKTYPE_CHEW);
-            if (aPlant)
-            {
-                if (aPlant->mSeedType == SeedType::SEED_SPIKEROCK)
-                {
-                    TakeDamage(20, 32U);
-                    aPlant->SpikeRockTakeDamage();
-                    if (aPlant->mPlantHealth <= 0)
-                    {
-                        SquishAllInSquare(aPlant->mPlantCol, aPlant->mRow, ZombieAttackType::ATTACKTYPE_CHEW);
-                    }
-                }
-                else
-                {
-                    SquishAllInSquare(aPlant->mPlantCol, aPlant->mRow, ZombieAttackType::ATTACKTYPE_CHEW);
-                }
-            }
-
-            if (mApp->IsScaryPotterLevel())
-            {
-                int aGridX = mBoard->PixelToGridX(mPosX, mPosY);
-                GridItem* aScaryPot = mBoard->GetScaryPotAt(aGridX, mRow);
-                if (aScaryPot)
-                {
-                    mBoard->mChallenge->ScaryPotterOpenPot(aScaryPot);
-                }
-            }
-
-            if (mApp->IsIZombieLevel())
-            {
-                GridItem* aBrain = mBoard->mChallenge->IZombieGetBrainTarget(this);
-                if (aBrain)
-                {
-                    mBoard->mChallenge->IZombieSquishBrain(aBrain);
-                }
-            }
-#endif
-
             mApp->PlayFoley(FoleyType::FOLEY_THUMP);
             mBoard->ShakeBoard(0, 3);
         }
@@ -2229,12 +2187,12 @@ void Zombie::UpdateZombieGargantuar()
                 aZombieImp->mVelX = -3.0f;
             }
             else
+#endif
             {
                 aZombieImp->mVelX = 3.0f;
             }
-#else
             aZombieImp->mVelX = 3.0f;
-#endif
+
             aZombieImp->mChilledCounter = mChilledCounter;
             aZombieImp->mVelZ = 0.5f * (aThrowingDistance / aZombieImp->mVelX) * THOWN_ZOMBIE_GRAVITY;
             aZombieImp->PlayZombieReanim("anim_thrown", ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 0, 18.0f);
@@ -3211,7 +3169,7 @@ void Zombie::UpdateZombiquarium()
             mVelZ = 0.0f;
         }
 
-        if (mPosX > 550.0f || aVelX > 0.0f)
+        if (mPosX > 550.0f && aVelX > 0.0f)
         {
             mVelZ = PI;
         }
@@ -6122,12 +6080,10 @@ int Zombie::GetDancerFrame()
         return (mBoard->mMainCounter % (aFrameLength * aFramesCount)) / aFrameLength;  // 修复“女仆秘籍”
     }
     else
+#endif
     {
         return (mApp->mAppCounter % (aFrameLength * aFramesCount)) / aFrameLength;
     }
-#else
-    return (mApp->mAppCounter % (aFrameLength * aFramesCount)) / aFrameLength;
-#endif
 }
 
 //0x52DFE0
@@ -7247,7 +7203,7 @@ void Zombie::DropLoot()
     if (!IsOnBoard())
         return;
 
-    AlmanacPlayerDefeatedZombie(mZombieType);
+    gZombieDefeated[mZombieType] = true;
     if (mZombieType == ZombieType::ZOMBIE_YETI)
     {
         mBoard->mKilledYeti = true;
@@ -7258,7 +7214,7 @@ void Zombie::DropLoot()
         return;
 
     mDroppedLoot = true;
-    int aZombieValue = GetZombieDefinition(mZombieType).mZombieValue;
+    int aZombieValue = gZombieDefs[mZombieType].mZombieValue;
     if (mApp->IsLittleTroubleLevel() && Rand(4) != 0)
     {
         return;
@@ -8903,12 +8859,11 @@ void Zombie::DetachShield()
         {
 #ifdef DO_FIX_BUGS
             if (mHasArm)  // 修复扶梯僵尸搭梯后断臂重生的 Bug
+#endif
             {
                 ReanimShowPrefix("Zombie_outerarm", RENDER_GROUP_NORMAL);
             }
-#else
-            ReanimShowPrefix("Zombie_outerarm", RENDER_GROUP_NORMAL);
-#endif
+
             mZombiePhase = ZombiePhase::PHASE_ZOMBIE_NORMAL;
             if (mIsEating)
             {
@@ -10627,7 +10582,7 @@ void Zombie::DrawBossPart(Graphics* g, BossPart theBossPart)
 //0x5369E0
 void Zombie::PreloadZombieResources(ZombieType theZombieType)
 {
-    const ZombieDefinition& aZombieDef = GetZombieDefinition(theZombieType);
+    const ZombieDefinition& aZombieDef = gZombieDefs[theZombieType];
     if (aZombieDef.mReanimationType != ReanimationType::REANIM_NONE)
     {
         ReanimatorEnsureDefinitionLoaded(aZombieDef.mReanimationType, true);
@@ -10646,7 +10601,7 @@ void Zombie::PreloadZombieResources(ZombieType theZombieType)
 
         for (int i = 0; i < LENGTH(gBossZombieList); i++)
         {
-            const ZombieDefinition& aDef = GetZombieDefinition(gBossZombieList[i]);
+            const ZombieDefinition& aDef = gZombieDefs[gBossZombieList[i]];
             ReanimatorEnsureDefinitionLoaded(aDef.mReanimationType, true);
         }
     }
@@ -10793,15 +10748,4 @@ void Zombie::SetupWaterTrack(const char* theTrackName)
     aTrackInstance->mIgnoreExtraAdditiveColor = true;
     aTrackInstance->mIgnoreColorOverride = true;
     aTrackInstance->mIgnoreClipRect = true;
-}
-
-int ZombieDefinition::getPage()
-{
-    if (thePage != -10000) return thePage;
-    int realIndex = -1;
-    for (int i = 0; i < NUM_ZOMBIE_TYPES; i++)
-    {
-        if (true) realIndex++;
-        if (this->mZombieType == gPlantDefs[i].mSeedType) return (realIndex / 49);
-    }
 }

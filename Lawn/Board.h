@@ -479,6 +479,5 @@ extern bool gShownMoreSunTutorial;
 
 int									GetRectOverlap(const Rect& rect1, const Rect& rect2);
 bool								GetCircleRectOverlap(int theCircleX, int theCircleY, int theRadius, const Rect& theRect);
-/*inline*/ void						BoardInitForPlayer();
 
 #endif // __BOARD_H__
