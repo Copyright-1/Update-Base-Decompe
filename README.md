@@ -15,4 +15,3 @@ This project is no longer under active development. No further changes, fixes, o
 ### Special Thanks
   - [InLiothixi](https://github.com/InLiothixi)
   - [Elect0Gunner](https://github.com/Electr0Gunner) - fixed music
-  - 
